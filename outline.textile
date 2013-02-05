@@ -1,0 +1,38 @@
+Chicken-and-egg problem
+* Intro
+* worth learning even if you never use
+** foreign travel, "teach them to yearn for the sea"
+** less freaked out by weird syntax (Objective-C, Coffeescript)
+** functional thinking (bowling game)
+*** closures & recursion
+** immutable variables: variable scope, side effects, maintainability
+** simple data structures
+*** OO boilerplate
+*** bowling game - getting wrapped around the axle
+** all adds up to a different way of thinking about problems (bowling game) 
+** the Erlang community is still small enough to be awesome
+*** lot of sharp people and interesting topics on erlang-questions list
+* what you need to wrap your head around - getting comfortable with the language, so you *could* use it
+** syntax - you will get used to it
+*** functions are sentences
+** recursion: beginning, end, middle
+*** pattern matching
+*** libraries: lists, proplists
+** objects -> processes, e.g. file handles
+*** 1> {ok, File} = file:open("test.txt", [write]).
+*** {ok,<0.38.0>}
+** gen_server? - https://github.com/bluegraybox/OTP-Basics
+* gaining experience
+** use on personal projects
+*** simple web apps
+**** ChicagoBoss, nitrogen, spooky, webmachine
+** non-critical apps
+*** escript
+*** testing tools: web services
+*** mock services
+** read other people's source
+*** I've contributed *minor* patches to both Spooky and Erlydtl
+*** odds are you'll find something you need to fix or extend
+** There are two sides to learning Erlang: the language itself, and building and deploying complex applications.
+*** Honestly, I haven't cracked the second half of that problem.
+
