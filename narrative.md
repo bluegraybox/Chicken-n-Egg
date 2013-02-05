@@ -44,7 +44,7 @@ I'll start with the syntax, which is probably the least significant weirdness, b
 What helped me get used to Erlang's syntax was realizing that what it looks like is English. Erlang functions are like sentences: You have commas between lists of things, semicolons between clauses, and a period at the end. Header statements like @-module@ and @-define@ all express a complete thought, so they end with a period. A function definition is one big multi-line sentence. Each line within it ends with a comma, function clauses end with a semicolon, and there's a period at the end. @case@, @if@, and @fun@ blocks are like mini function definitions: They separate their conditions with semicolons and end with @end@. @end@ *is* the puctuation; you don't put another semicolon before it. After @end@, you put whatever punctuation would normally go there.
 
 Here's a cheat sheet:
-{% code lang=erlang line_numbers=false %}
+```erlang
 go_shopping(hardware) ->
     hammer,
     nails;
@@ -56,9 +56,9 @@ go_shopping(groceries) ->
         4 -> "Bleah"
     end,
     peanut_butter.
-{% end %}
+```
 
-{% code lang=erlang line_numbers=false %}
+```erlang
 -module(my_module).
 
 my_func([]) ->
@@ -77,7 +77,7 @@ my_func(Values) ->
     end,
     Value = lists:foldl(Fold, Values),
     {"We're good!", Value}.
-{% end %}
+```
 
 h3. Recursion
 
@@ -89,36 +89,36 @@ This is also where Erlang's weirdnesses start working together. Immutable variab
 
 Like a story, a recursive function has a beginning, a middle, and an end. The beginning and end are usually the easiest parts, so let's tackle those first. The beginning of a recursion is just a function that takes the input, sets up any initial state, ouput accumulators, etc., and recurses. In this case, we take an input list and set up an empty output list.
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     %% beginning
     func(Input) ->
         Output = [],
         func(Input, Output).
-{% end %}
+```
 
 The end stage is also easy to define. We pattern-match on an empty input list, and return our output list.
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     %% end
     func([], Output) -> lists:reverse(Output).
-{% end %}
+```
 
 The middle stage defines what we do with any single element in the list, and how we move on to the next one. Here, we just pop the first element off the input list, munge it to create a new element, push that onto the output list, and recurse with the newly-diminished input and newly-extended output. (And note that we add our new element at the beginning of the list, rather than the end - it's an efficiency thing.)
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     %% middle
     func([First | Rest], Output) ->
         NewFirst = munge(First),
         func(Rest, [NewFirst | Output]);
-{% end %}
+```
 
 That's all there is to the basics of recursion. You may have multiple inputs and outputs, and there could be multiple middle and end functions to handle different cases (and we'll see a more interesting example in a minute), but the basic pattern is the same.
 
 As a coda to this, it's worth mentioning that this is essentially what Erlang's @lists:map/2@ function does, so you could replace all the forgoing with something like:
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     lists:map(fun my_module:munge/1, Input)
-{% end %}
+```
 
 The @lists@ module has a number of other functions for doing simple list munging like this.
 
@@ -130,17 +130,17 @@ In Erlang of course, you do it all the time. Understanding why requires a bit of
 
 In a sense, Erlang is more truly object oriented than OO languages, but you come to it by a roundabout way. Since even complex data structures are immutable, updating your data creates a new reference to it. So the only way to have something like global, mutable data is to have that reference owned by a single process and managed like so: 
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     loop(State) ->
         receive Message ->
             NewState = handle_message(Message, State),
             loop(NewState)
         end.
-{% end %}
+```
 
 (You wouldn't literally have code like this, but it's effectively what you're doing.) @State@ is any data structure, from an integer to a nested tuple/list/dictionary structure. You'd spawn this loop function as a new process with its initial state data. From then on it would receive messages from other processes, update its state, maybe send a respose, and then recurse with the new state. The key here is that it's a local variable to this function; there's no way for any other process to mess with it directly. If you spawn another process with this function, it will have a separate copy of the @State@, and any updates it makes will be completely independent of this. The simplest example I can think of would be an auto-incrementing id generator:
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     loop(Id) ->
         receive
             {Pid, next} ->
@@ -148,29 +148,29 @@ In a sense, Erlang is more truly object oriented than OO languages, but you come
                 Pid ! NewId,
                 loop(NewId)
         end.
-{% end %}
+```
 
 You could start it up and get new ids like so:
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     Pid = spawn(fun() -> loop(0) end),
     Pid ! {self(), next},
     Id = receive Resp -> Resp end.
-{% end %}
+```
 
 So anything that would be an object in an OO language is a process in Erlang. I hadn't realized quite how true that was until I was messing around in the Erlang shell, and opened a file. @file:open/2@ says it returns @{ok, IoDevice}@ on success. Let's take a look at that:
 
-{% code %}
+```
     1> file:open("test.txt", [write]).
     {ok,<0.35.0>}
-{% end %}
+```
 
 Hey, wait! That's a process id. See?
 
-{% code %}
+```
     2> self().
     <0.32.0>
-{% end %}
+```
 
 So when you open a file, you don't actually access it directly; you're spawning off a process to manage access to it.
 
@@ -182,37 +182,37 @@ Ok, so once you've gotten past the language concepts, how can you actually get s
 
 Probably the easiest way to start, if you just want to get comfortable with the language, is shell scripting. @escript@ lets you use Erlang as a scripting language.
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     #!/usr/local/bin/escript
 
     main(Args) ->
         io:format("Hello world!~n\t~p~n", [Args]).
-{% end %}
+```
 
 Here's a simple way to grab web pages (like @curl@ but without all the options):
 
-{% code lang=erlang line_numbers=false %}
+```erlang
 #!/usr/local/bin/escript
 
 main([Url]) ->
     inets:start(),
     {ok, {Status, _Header, Content}} = httpc:request(Url),
     io:format("Response (~p):~n~s~n", [Status, Content]).
-{% end %}
+```
 
 In fact, looking at the @httpc:request@ docs, I think it'll let you do most of the things you can do with @curl@. Need to make an PUT request over SSL and set a cookie? No problem.
 I started with this and built out an automated testing tool for a web service I was writing. 
 
 You can do all sorts of little, useful things like this. They're a way to get used to Erlang's idioms, and you can gradually build in more complexity as you go. You have the ease of scripting, with full access to Erlang's libaries. Furthermore, you can set a name or sname in your script, and then it can connect to other Erlang nodes.
 
-{% code lang=erlang line_numbers=false %}
+```erlang
     #!/usr/local/bin/escript
     %%! -sname my_script
 
     -mode(compile).  % to speed things up
-{% end %}
+```
 
-{% code %}
+```
 	gaining experience
 		use on personal projects
 			simple web apps
@@ -226,10 +226,10 @@ You can do all sorts of little, useful things like this. They're a way to get us
 			odds are you'll find something you need to fix or extend
 		There are two sides to learning Erlang: the language itself, and building and deploying complex applications.
 			Honestly, I haven't cracked the second half of that problem.
-{% end %}
+```
 
 
-{% code lang=erlang line_numbers=false %}
+```erlang
 score(Rolls) -> frame(1, 0, Rolls).
 
 frame(11, Score, _BonusRolls) -> Score;
@@ -245,4 +245,4 @@ frame(Frame, Score, [First,Second|Rest]) ->
 
 spare_bonus([First|_Rest]) -> First.
 strike_bonus([First,Second|_Rest]) -> First + Second.
-{% end %}
+```
