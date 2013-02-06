@@ -1,0 +1,282 @@
+code-engine: sh
+
+author: Colin MacDonald
+email: colin@bluegraybox.com
+title: Chicken n' Egg
+footer: 
+subfooter: 
+{% css %}
+.syntaxhighlighter {
+    padding: 0.2em 0 0.2em 1em;
+    margin: 0 0 0 0 !important;
+    width: 100%;
+}
+.syntaxhighlighter table td.code .line {
+    padding: 0 0 0 0 !important;
+}
+.code {
+    background-color: #DDDDDD;
+    padding: 1px;
+}
+.slide h1 {
+    text-align: left;
+    color: #FF6633;
+}
+.codeurl {
+    color: grey;
+    font-style: italic;
+}
+body {
+    color: grey;
+}
+small {
+    color: lightgrey;
+}
+.author {
+    color: grey;
+    font-style: italic;
+    margin-top: 6em;
+}
+table.author td {
+    padding-left: 4em;
+}
+table.author td:first-child {
+    padding-left: 0;
+}
+li.none {
+    list-style-type: none;
+}
+a:link, a:visited {
+    color: grey;
+    text-decoration: none;
+}
+.credit, .credit a, .aside {
+    color: #888;
+}
+.credit, .credit a {
+    font-size: medium;
+}
+.error {
+    color: red;
+}
+.bullets.code ul li {
+    text-align: left;
+    padding: 10px 25px;
+}
+{% end %}
+
+
+h1. The Chicken and Egg Problem
+
+p=. !img/chicken-egg.jpg(chicken and egg)!
+
+p=(credit). "Image from Nationaal Archief/Spaarnestad Photo":http://www.flickr.com/photos/nationaalarchief/5679579533/sizes/z/in/photostream/
+
+p(author). Colin MacDonald
+
+
+!SLIDE
+% Foreign Travel
+
+p=. !img/escargot.jpg(escargot)!
+
+p=(credit). "Image by Flavio Ensiki":http://www.flickr.com/photos/flavouz/4364129769/
+
+
+!SLIDE
+
+p=. !img/bowling.jpg(bowling)!
+
+p=(credit). "Image by Heisenberg Media":http://www.flickr.com/photos/heisenbergmedia/8429677728/
+
+
+h1. Bowling Elegantly
+
+{% code lang=erlang line_numbers=false %}
+score(Rolls) -> frame(Rolls, 1, 0).
+
+ %% Game complete.
+frame(_BonusRolls, 11, Score) -> Score;
+
+ %% Strike.
+frame([10|Rest], Frame, Score) ->
+    frame(Rest, Frame + 1, Score + 10 + strike_bonus(Rest));
+
+ %% Spare.
+frame([First,Second|Rest], Frame, Score) when (First + Second == 10) ->
+    frame(Rest, Frame + 1, Score + 10 + spare_bonus(Rest));
+
+ %% Normal.
+frame([First,Second|Rest], Frame, Score) ->
+    frame(Rest, Frame + 1, Score + First + Second).
+
+ %% spare & strike bonus calculations.
+spare_bonus([First|_Rest]) -> First.
+strike_bonus([First,Second|_Rest]) -> First + Second.
+{% end %}
+
+
+!SLIDE
+
+p=. !img/splashdown.jpg(Apollo 11)!
+
+p=(credit). "Image by NASA":http://www.flickr.com/photos/penmachine/3738747586/
+
+
+!SLIDE
+
+p=. !img/crowd.jpg(crowd)!
+
+p=(credit). "Image by James Cridland":http://www.flickr.com/photos/jamescridland/613445810/
+
+
+!SLIDE
+
+p=. !img/ideas.jpg(ideas)!
+
+p=(credit). "Image by Khalid Albaih":http://www.flickr.com/photos/khalidalbaih/5134654297/
+
+
+h1. Syntax
+
+
+h1. Syntax
+
+{% code lang=erlang line_numbers=false %}
+-module(my_module).
+
+my_func([]) ->
+    Value = get_default_value(),
+    Response = case other_func(Value) of
+        ok -> "We're good!";
+        _ -> "Oh noes!"
+    end,
+    {Response, Value};
+my_func([Value]) ->
+    {"We're good!", Value};
+my_func(Values) ->
+    IncDbl = fun (X) ->
+        Inc = X + 1,
+        Inc * 2
+    end,
+    Value = lists:map(IncDbl, Values),
+    {"We're good!", Value}.
+{% end %}
+
+
+h1. Recursion
+
+
+h1. Recursion
+{% code lang=erlang line_numbers=false %}
+% Need to put a space before comments, or Slideshow treats them as its own comments
+ %% beginning
+func(Input) ->
+    Output = [],
+    func(Input, Output).
+{% end %}
+
+
+h1. Recursion
+{% code lang=erlang line_numbers=false %}
+ %% beginning
+func(Input) ->
+    Output = [],
+    func(Input, Output).
+
+ %% end
+func([], Output) -> lists:reverse(Output).
+{% end %}
+
+
+h1. Recursion
+{% code lang=erlang line_numbers=false %}
+ %% beginning
+func(Input) ->
+    Output = [],
+    func(Input, Output).
+
+ %% end
+func([], Output) -> lists:reverse(Output).
+
+ %% middle
+func([First | Rest], Output) ->
+    NewFirst = munge(First),
+    func(Rest, [NewFirst | Output]);
+{% end %}
+
+
+h1. Recursion
+
+{% code lang=erlang line_numbers=false %}
+lists:map(fun my_module:munge/1, Input)
+{% end %}
+
+
+h1. More OO than OO
+
+p=. !img/more_human.jpg(ideas)!
+
+p=(credit). "Image by Mark Hillary":http://www.flickr.com/photos/markhillary/4054661757/
+
+
+h1. More OO than OO
+
+{% code lang=erlang line_numbers=false %}
+loop(State) ->
+    receive Message ->
+        NewState = handle_message(Message, State),
+        loop(NewState)
+    end.
+{% end %}
+
+
+h1. More OO than OO
+
+{% code lang=erlang line_numbers=false %}
+loop(Id) ->
+    receive
+        {FromPid, next} ->
+            NewId = Id + 1,
+            FromPid ! NewId,
+            loop(NewId)
+    end.
+{% end %}
+
+
+h1. More OO than OO
+
+{% code lang=erlang line_numbers=false %}
+loop(Id) ->
+    receive
+        {FromPid, next} ->
+            NewId = Id + 1,
+            FromPid ! NewId,
+            loop(NewId)
+    end.
+
+init() ->
+    Pid = spawn(fun() -> loop(0) end),
+    Pid ! {self(), next},
+    Id = receive Resp -> Resp end.
+{% end %}
+
+
+h1. More OO than OO
+
+h2. Seriously!
+{% code lang=erlang line_numbers=false %}
+1> file:open("test.txt", [write]).
+{ok,<0.35.0>}
+{% end %}
+
+
+h1. More OO than OO
+
+h2. Seriously!
+{% code lang=erlang line_numbers=false %}
+1> file:open("test.txt", [write]).
+{ok,<0.35.0>}
+2> self().
+<0.32.0>
+{% end %}

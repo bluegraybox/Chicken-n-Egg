@@ -11,6 +11,6 @@ To install S9/Slideshow and the S6 theme:
 
 To generate the slides:
 
-    slideshow -t s6syntax.txt chicken_n_egg
+    slideshow -t s6syntax.txt slides
 
-This will generate a chicken_n_egg.html file, which you can just open in a browser.
+This will generate a slides.html file which you can just open in a browser.

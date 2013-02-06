@@ -1,27 +1,35 @@
-Chicken-and-egg problem
-* Intro
-* worth learning even if you never use
-** foreign travel, "teach them to yearn for the sea"
-** less freaked out by weird syntax (Objective-C, Coffeescript)
-** functional thinking (bowling game)
-*** closures & recursion
-** immutable variables: variable scope, side effects, maintainability
-** simple data structures
-*** OO boilerplate
-*** bowling game - getting wrapped around the axle
-** all adds up to a different way of thinking about problems (bowling game) 
+Erlang's Chicken-and-Egg Problem
+* Need the experience to get the job...
+** Scalable distributed systems
+** Weird language: not-C, immutable, no for loop
+** roadmap: worth learning, getting over the hump, gaining experience
+
+* Worth learning for its own sake
+** foreign travel: day trip v stay
+** meta-learning/adaptability
+** less freaked out by syntax: Coffeescript, Objective-C
+** functional problem-solving (bowling game)
+*** division of responsibility; complexity begets complexity
+*** list of numbers -> single number: fold function
+*** back to Python
+** Backbone.js & Coffeescript
 ** the Erlang community is still small enough to be awesome
-*** lot of sharp people and interesting topics on erlang-questions list
-* what you need to wrap your head around - getting comfortable with the language, so you *could* use it
+
+* Over the hump
 ** syntax - you will get used to it
-*** functions are sentences
-** recursion: beginning, end, middle
+*** not C but English; functions are sentences
+*** control structures are functions
+
+** recursion: rare in OO, everywhere in Erlang
+*** synergistic weirdness: immutable variables, pattern matching
+*** beginning, end, middle
 *** pattern matching
 *** libraries: lists, proplists
-** objects -> processes, e.g. file handles
-*** 1> {ok, File} = file:open("test.txt", [write]).
-*** {ok,<0.38.0>}
-** gen_server? - https://github.com/bluegraybox/OTP-Basics
+
+** processes & IPC: again, rare in OO, everywhere in Erlang
+*** more OO than OO: objects -> processes
+*** e.g. file handles
+*** gen_server? - https://github.com/bluegraybox/OTP-Basics
 * gaining experience
 ** use on personal projects
 *** simple web apps
