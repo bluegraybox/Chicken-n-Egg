@@ -76,7 +76,6 @@ p(author). Colin MacDonald
 
 
 !SLIDE
-% Foreign Travel
 
 p=. !img/escargot.jpg(escargot)!
 
@@ -142,25 +141,25 @@ h1. Syntax
 
 h1. Syntax
 
-{% code lang=erlang line_numbers=false %}
+{% code line_numbers=false %}
 -module(my_module).
 
 my_func([]) ->
-    Value = get_default_value(),
+    Value = get_default_value(),          % comma
     Response = case other_func(Value) of
-        ok -> "We're good!";
-        _ -> "Oh noes!"
-    end,
-    {Response, Value};
+        ok -> "We're good!";              % semicolon
+        _ -> "Oh noes!"                   % nothing!
+    end,                                  % comma
+    {Response, Value};                    % semicolon
 my_func([Value]) ->
-    {"We're good!", Value};
+    {"We're good!", Value};               % semicolon
 my_func(Values) ->
     IncDbl = fun (X) ->
-        Inc = X + 1,
-        Inc * 2
-    end,
-    Value = lists:map(IncDbl, Values),
-    {"We're good!", Value}.
+        Inc = X + 1,                      % comma
+        Inc * 2                           % nothing!
+    end,                                  % comma
+    Value = lists:map(IncDbl, Values),    % comma
+    {"We're good!", Value}.               % period
 {% end %}
 
 
@@ -264,7 +263,6 @@ init() ->
 
 h1. More OO than OO
 
-h2. Seriously!
 {% code lang=erlang line_numbers=false %}
 1> file:open("test.txt", [write]).
 {ok,<0.35.0>}
@@ -273,10 +271,64 @@ h2. Seriously!
 
 h1. More OO than OO
 
-h2. Seriously!
+h2. gen_server, gen_event, gen_fsm, ...
+
+
+!SLIDE
+
+p=. !img/blacksmith.jpg(blacksmith)!
+
+p=(credit). "Image by Derek Key":http://www.flickr.com/photos/derekskey/5249580870/
+
+
+h1. Scripting
+
 {% code lang=erlang line_numbers=false %}
-1> file:open("test.txt", [write]).
-{ok,<0.35.0>}
-2> self().
-<0.32.0>
+#!/usr/local/bin/escript
+
+main(Args) ->
+    io:format("Hello world!~n\t~p~n", [Args]).
 {% end %}
+
+
+h1. Scripting
+
+{% code lang=erlang line_numbers=false %}
+ #!/usr/local/bin/escript
+ %%! -sname my_script
+{% end %}
+
+
+h1. Scripting
+
+{% code lang=erlang line_numbers=false %}
+#!/usr/local/bin/escript
+
+main([Url]) ->
+    inets:start(),
+    {ok, {{_Proto, Code, _Desc}, _Hdr, Content}} = httpc:request(Url),
+    io:format("Response (~p):~n~s~n", [Code, Content]).
+{% end %}
+
+
+h1. Testing Tools
+
+
+h1. Web Service Fakery
+
+{% code lang=erlang line_numbers=false %}
+-module(my_web_service).
+-behaviour(spooky).
+-export([init/1, get/2]).
+
+init([])-> [{port, 8000}].
+
+get(Req, [])->
+    Req:ok("Default response");
+ %% http://localhost:8000/path/to/resource
+get(Req, ["path", "to", "resource"])->
+    Req:ok("Canned response for resource");
+get(Req, ["path", "to", "other-resource"])->
+    Req:ok("Canned response for other resource").
+{% end %}
+

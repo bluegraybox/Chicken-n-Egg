@@ -29,8 +29,17 @@ Erlang's Chicken-and-Egg Problem
 ** processes & IPC: again, rare in OO, everywhere in Erlang
 *** more OO than OO: objects -> processes
 *** e.g. file handles
-*** gen_server? - https://github.com/bluegraybox/OTP-Basics
+*** gen_server, gen_event
+
 * gaining experience
+** scripting
+** testing tools
+*** mock web service
+
+** simple web apps
+*** ChicagoBoss, nitrogen, spooky, webmachine
+
+
 ** use on personal projects
 *** simple web apps
 **** ChicagoBoss, nitrogen, spooky, webmachine

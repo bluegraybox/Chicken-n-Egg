@@ -1,6 +1,6 @@
 # Chicken and Egg Problem
 
-Erlang has this chicken-and-egg problem. The core of it is a variant on the old, "You need the experience to get the job, but you need the job to get the experience," conundrum. There are two things that make this more acute: The kind of systems that Erlang is particularly good for are exactly the kind of systems that you don't want to be building if you don't know what you're doing; and Erlang is not like the other kids in the trailer park. It looks kinda funny. It doesn't have C-style syntax. It has immutable variables and no `for` loops. That throws a lot of people.
+With any new programming language or technology, you're faced with this chicken-and-egg problem. It's the old conundrum that "You need the experience to get the job, but you need the job to get the experience." In Erlang's case, There are two things that make this more acute: The kind of systems that Erlang is particularly good for are exactly the kind of systems that you don't want to be building if you don't know what you're doing; and Erlang is not like the other kids in the trailer park. It looks kinda funny. It doesn't have C-style syntax. It has immutable variables and no `for` loops. That throws a lot of people.
 
 So what can I do in half an hour to help you break out of this catch-22? The first part is to convince you that Erlang is worth learning even if you never use it professionally; it's its own reward and time well spent. The second part is to give you a running start at the Erlang learning curve, to help get you over the hump. There are a few concepts in Erlang in specific - and functional programming in general - that you need to wrap your head around. Hopefully, there will be an "Ah-ha!" moment or two for you in here somewhere. The third part is giving you a few ideas about what you can work on to get some practical experience with Erlang.
 
@@ -19,6 +19,29 @@ A good example of this is the bowling game program. Those of you who saw my talk
 I went back and looked at the Python code and realized how much of it was OO modeling that doesn't actually help solve the problem. In fact, it creates a bunch of its own problems. Obviously, you need a Game class and a Frame class, and the Game keeps a list of Frames. Then you very quickly get into all these metaphysical questions around whether a Frame should just be a dumb data holder, or whether it should be a fully self-actualized and empowered being, capable of accessing other frames to calculate its score and detect bad data. Putting all the smarts in the Game may be the easiest thing, but that brings up historical echoes of failed Soviet central planning, and just doesn't feel very OO. And once you've got these classes, you start speculating about possible features: What if you want to be able to query the Game for a list of all the rolls - does that change how you store that info? In short, you can get really wrapped around the axle with all these design issues.
 
 The Erlang solution sidesteps that whole mess. It just maps input to output. The input is a list of numbers, the output is a single number. That sounds like some kind of fold function. With pattern matching, you write that as one function with four clauses: End of game, strike frame, spare frame, normal frame.
+
+```erlang
+score(Rolls) -> frame(Rolls, 1, 0).
+
+ %% Game complete.
+frame(_BonusRolls, 11, Score) -> Score;
+
+ %% Strike.
+frame([10|Rest], Frame, Score) ->
+    frame(Rest, Frame + 1, Score + 10 + strike_bonus(Rest));
+
+ %% Spare.
+frame([First,Second|Rest], Frame, Score) when (First + Second == 10) ->
+    frame(Rest, Frame + 1, Score + 10 + spare_bonus(Rest));
+
+ %% Normal.
+frame([First,Second|Rest], Frame, Score) ->
+    frame(Rest, Frame + 1, Score + First + Second).
+
+ %% spare & strike bonus calculations.
+spare_bonus([First|_Rest]) -> First.
+strike_bonus([First,Second|_Rest]) -> First + Second.
+```
 
 ### Bringing it Home
 
@@ -53,21 +76,21 @@ Here's a cheat sheet:
 -module(my_module).
 
 my_func([]) ->
-    Value = get_default_value(),
-    Response = case other_func() of
-        ok -> "We're good!";
-        _ -> "Oh noes!"
-    end,
-    {Response, Value};
+    Value = get_default_value(),          % comma
+    Response = case other_func(Value) of
+        ok -> "We're good!";              % semicolon
+        _ -> "Oh noes!"                   % nothing!
+    end,                                  % comma
+    {Response, Value};                    % semicolon
 my_func([Value]) ->
-    {"We're good!", Value};
+    {"We're good!", Value};               % semicolon
 my_func(Values) ->
-    Fold = fun (X) ->
-        Inc = X + 1,
-        Inc * 2
-    end,
-    Value = lists:foldl(Fold, Values),
-    {"We're good!", Value}.
+    IncDbl = fun (X) ->
+        Inc = X + 1,                      % comma
+        Inc * 2                           % nothing!
+    end,                                  % comma
+    Value = lists:map(IncDbl, Values),    % comma
+    {"We're good!", Value}.               % period
 ```
 
 ### Recursion
@@ -165,11 +188,13 @@ Hey, wait! That's a process id. See?
 
 So when you open a file, you don't actually access it directly; you're spawning off a process to manage access to it.
 
-As with recursion and the `lists` module, Erlang's `gen_server` module gives you a more formal and standard way to do this sort of thing. It add a lot of process management on top of this basic communication, so I won't get into the details here, but check it out.
+As with recursion and the `lists` module, Erlang has module like `gen_server` and `gen_event` which gieve you a more formal and standard way to do this sort of thing. They add a lot of process management on top of this basic communication, so I won't get into the details here, but check it out.
 
-## Getting experience
+## Getting Practice
 
 Ok, so once you've gotten past the language concepts, how can you actually get some practice with it? Something a little more low-key than massively distributed high-availability systems?
+
+### Scripting
 
 Probably the easiest way to start, if you just want to get comfortable with the language, is shell scripting. `escript` lets you use Erlang as a scripting language.
 
@@ -180,28 +205,52 @@ main(Args) ->
     io:format("Hello world!~n\t~p~n", [Args]).
 ```
 
-Here's a simple way to grab web pages (like `curl` but without all the options):
+That's pretty cool. You have the ease of scripting, with full access to Erlang's libaries. Furthermore, you can set a node name or sname in your script, and then it can connect to other Erlang nodes.
+
+```erlang
+#!/usr/local/bin/escript
+%%! -sname my_script
+```
+
+For example, here's a simple way to grab a web page:
 
 ```erlang
 #!/usr/local/bin/escript
 
 main([Url]) ->
     inets:start(),
-    {ok, {Status, _Header, Content}} = httpc:request(Url),
-    io:format("Response (~p):~n~s~n", [Status, Content]).
+    {ok, {{_Proto, Code, _Desc}, _Hdr, Content}} = httpc:request(Url),
+    io:format("Response (~p):~n~s~n", [Code, Content]).
 ```
 
-In fact, looking at the `httpc:request` docs, I think it'll let you do most of the things you can do with `curl`. Need to make an PUT request over SSL and set a cookie? No problem.
-I started with this and built out an automated testing tool for a web service I was writing. 
+That's actually pretty handy because you can fetch data from web services that way. I started with this and built out a really simple automated testing tool for a web service I was writing, in about 20 lines of code. You can do all sorts of useful little things like this. They're a way to get used to Erlang's idioms, and you can gradually build in more complexity as you go.
 
-You can do all sorts of little, useful things like this. They're a way to get used to Erlang's idioms, and you can gradually build in more complexity as you go. You have the ease of scripting, with full access to Erlang's libaries. Furthermore, you can set a name or sname in your script, and then it can connect to other Erlang nodes.
+### Testing Tools
+
+In fact, testing tools may be one way to get in some real experience with Erlang. You could do something simple to test web service functionality, or something more complicated and concurrent for load testing.
+
+You could also mock out back-end web services for testing. I was doing some browser-side Javascript development last summer, and didn't have access to the server I'd be talking to. (It was running on an embedded device.) So I faked it up in Erlang with Spooky, which is a simple Sinatra-style framework. It went something like this:
 
 ```erlang
-#!/usr/local/bin/escript
-%%! -sname my_script
+-module(my_web_service).
+-behaviour(spooky).
+-export([init/1, get/2]).
 
--mode(compile).  % to speed things up
+init([])-> [{port, 8000}].
+
+get(Req, [])->
+    Req:ok("Default response");
+%% http://localhost:8000/path/to/resource
+get(Req, ["path", "to", "resource"])->
+    Req:ok("Canned response for resource");
+get(Req, ["path", "to", "other-resource"])->
+    Req:ok("Canned response for other resource").
 ```
+
+### Web Apps
+
+So web apps are another good place to start tinkering with Erlang. Erlang has a range of web application frameworks, so you can decide how much of the heavy lifting you want to do. As you saw, Spooky lets you simple stuff easily, but it's fairly low-level. ChicagoBoss is a richer, Django-like framework with URL dispatching and page templates.
+
 
 ```
 	gaining experience
@@ -217,23 +266,4 @@ You can do all sorts of little, useful things like this. They're a way to get us
 			odds are you'll find something you need to fix or extend
 		There are two sides to learning Erlang: the language itself, and building and deploying complex applications.
 			Honestly, I haven't cracked the second half of that problem.
-```
-
-
-```erlang
-score(Rolls) -> frame(1, 0, Rolls).
-
-frame(11, Score, _BonusRolls) -> Score;
-
-frame(Frame, Score, [10|Rest]) ->
-    frame(Frame + 1, Score + 10 + strike_bonus(Rest), Rest);
-
-frame(Frame, Score, [First,Second|Rest]) when (First + Second == 10) ->
-    frame(Frame + 1, Score + 10 + spare_bonus(Rest), Rest);
-
-frame(Frame, Score, [First,Second|Rest]) ->
-    frame(Frame + 1, Score + First + Second, Rest);
-
-spare_bonus([First|_Rest]) -> First.
-strike_bonus([First,Second|_Rest]) -> First + Second.
 ```
