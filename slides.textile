@@ -66,13 +66,14 @@ a:link, a:visited {
 {% end %}
 
 
-h1. The Chicken and Egg Problem
+h1. Amateur Erlang
 
-p=. !img/chicken-egg.jpg(chicken and egg)!
+_am·a·teur noun \ˈa-mə-(ˌ)tər, -ˌtu̇r, -ˌtyu̇r, -ˌchu̇r, -chər\_
 
-p=(credit). "Image from Nationaal Archief/Spaarnestad Photo":http://www.flickr.com/photos/nationaalarchief/5679579533/sizes/z/in/photostream/
+# devotee, admirer
+# one who engages in a pursuit, study, science, or sport as a pastime rather than as a profession
 
-p(author). Colin MacDonald
+p=(credit). http://www.merriam-webster.com/dictionary/amateur
 
 
 !SLIDE

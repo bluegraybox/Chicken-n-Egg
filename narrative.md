@@ -1,8 +1,10 @@
-# Chicken and Egg Problem
+# Amateur Erlang
 
-With any new programming language or technology, you're faced with this chicken-and-egg problem. It's the old conundrum that "You need the experience to get the job, but you need the job to get the experience." In Erlang's case, there are two things that make this more acute: The kind of systems that Erlang is particularly good for are exactly the kind of systems that you don't want to be building if you don't know what you're doing; and Erlang is not like the other kids in the trailer park. It looks kinda funny. It doesn't have C-style syntax. It has immutable variables and no `for` loops. That throws a lot of people.
+I think I'm the only one up here who doesn't actually make their living programming Erlang. I've been tinkering with it for the last year and a half or so, and it's been awesome.
 
-So what can I do in half an hour to help you break out of this catch-22? The first part is to convince you that Erlang is worth learning even if you never use it professionally; it's its own reward and time well spent. The second part is to give you a running start at the Erlang learning curve, to help get you over the hump. There are a few concepts in Erlang in specific - and functional programming in general - that you need to wrap your head around. Hopefully, there will be an "Ah-ha!" moment or two for you in here somewhere. The third part is giving you a few ideas about what you can work on to get some practical experience with Erlang.
+First off, I like learning - you kinda have to in this business, and I don't think you all would be spending your Saturday here if you didn't also. Erlang gives you a lot to learn, especially if, like me, you're new to functional programming. That's a whole new world, and Erlang is actually a nice way to learn it. Secondly, while I haven't written much Erlang code for work - I've written a tiny bit and I'll talk about that later - that functional programming experience has started to creep into code I'm writing in other languages. All in all, I've learned a lot, become a better programmer, and had a ton of fun.
+
+So I'm going to talk a bit about what you learn by learning Erlang, and try to give you a running start at it. There are a few concepts in Erlang in specific - and functional programming in general - that you need to wrap your head around. Hopefully, there will be an "Ah-ha!" moment or two for you in here somewhere. Lastly, I'll talk about the things that I've found to be good ways of getting some practical experience with Erlang.
 
 ## Foreign Travel
 
