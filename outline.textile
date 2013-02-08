@@ -37,19 +37,7 @@ Erlang's Chicken-and-Egg Problem
 *** mock web service
 
 ** simple web apps
-*** ChicagoBoss, nitrogen, spooky, webmachine
+*** spooky, ChicagoBoss, webmachine
+*** still evolving; "opportunities to contribute"
 
-
-** use on personal projects
-*** simple web apps
-**** ChicagoBoss, nitrogen, spooky, webmachine
-** non-critical apps
-*** escript
-*** testing tools: web services
-*** mock services
 ** read other people's source
-*** I've contributed *minor* patches to both Spooky and Erlydtl
-*** odds are you'll find something you need to fix or extend
-** There are two sides to learning Erlang: the language itself, and building and deploying complex applications.
-*** Honestly, I haven't cracked the second half of that problem.
-

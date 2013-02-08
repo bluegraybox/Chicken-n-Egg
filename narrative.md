@@ -1,6 +1,6 @@
 # Chicken and Egg Problem
 
-With any new programming language or technology, you're faced with this chicken-and-egg problem. It's the old conundrum that "You need the experience to get the job, but you need the job to get the experience." In Erlang's case, There are two things that make this more acute: The kind of systems that Erlang is particularly good for are exactly the kind of systems that you don't want to be building if you don't know what you're doing; and Erlang is not like the other kids in the trailer park. It looks kinda funny. It doesn't have C-style syntax. It has immutable variables and no `for` loops. That throws a lot of people.
+With any new programming language or technology, you're faced with this chicken-and-egg problem. It's the old conundrum that "You need the experience to get the job, but you need the job to get the experience." In Erlang's case, there are two things that make this more acute: The kind of systems that Erlang is particularly good for are exactly the kind of systems that you don't want to be building if you don't know what you're doing; and Erlang is not like the other kids in the trailer park. It looks kinda funny. It doesn't have C-style syntax. It has immutable variables and no `for` loops. That throws a lot of people.
 
 So what can I do in half an hour to help you break out of this catch-22? The first part is to convince you that Erlang is worth learning even if you never use it professionally; it's its own reward and time well spent. The second part is to give you a running start at the Erlang learning curve, to help get you over the hump. There are a few concepts in Erlang in specific - and functional programming in general - that you need to wrap your head around. Hopefully, there will be an "Ah-ha!" moment or two for you in here somewhere. The third part is giving you a few ideas about what you can work on to get some practical experience with Erlang.
 
@@ -249,7 +249,11 @@ get(Req, ["path", "to", "other-resource"])->
 
 ### Web Apps
 
-So web apps are another good place to start tinkering with Erlang. Erlang has a range of web application frameworks, so you can decide how much of the heavy lifting you want to do. As you saw, Spooky lets you simple stuff easily, but it's fairly low-level. ChicagoBoss is a richer, Django-like framework with URL dispatching and page templates.
+So web apps are another good place to start tinkering with Erlang. Erlang has a range of web application frameworks, so you can decide how much of the heavy lifting you want to do. As you saw, Spooky lets you simple stuff easily, but it's fairly low-level.
+
+ChicagoBoss is a richer, Django-like framework with an ORM, URL dispatching, and page templates (with Django syntax, no less). Wait, _Object_-Relational Mapper? What's that doing in a functional language? Yeah, ok, really they're proplists with a parameterized module and a bunch of auto-generated helper functions wrapped around them. They're still immutable; don't freak out. ChicagoBoss just makes them a little easier to work with. It also gives you some enticing extras like a built in message queue and email server. The ChicagoBoss tutorial is really concise and well-written, so I'll leave it at that.
+
+If you want to get into the nuts and bolts of proper HTTP request handling, take a look at WebMachine. Most web frameworks leave out or gloss over a lot of the richness of the HTTP protocol. WebMachine gives you a lot of control over every step of the request handling, and forces you to think it through. It's not the most intuitive for beginners, but it's an education.
 
 
 ```

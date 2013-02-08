@@ -313,6 +313,10 @@ main([Url]) ->
 
 h1. Testing Tools
 
+p=. !img/oscilloscope.jpg(testing)!
+
+p=(credit). "Image by Audin Malmin":http://www.flickr.com/photos/audin/2418185852/
+
 
 h1. Web Service Fakery
 
@@ -332,3 +336,15 @@ get(Req, ["path", "to", "other-resource"])->
     Req:ok("Canned response for other resource").
 {% end %}
 
+
+h1. Web Apps
+* Spooky
+* ChicagoBoss
+* WebMachine
+
+
+h1. Maintenance
+
+p=. !img/maintenance.jpg(maintenance)!
+
+p=(credit). "Image by US Navy":http://www.flickr.com/photos/usnavy/5863636901/
