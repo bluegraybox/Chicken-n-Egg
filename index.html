@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="content-type" content="text/html;charset=utf-8"> 
+   <title>Chicken n' Egg</title>
+
+<meta name="generator" content="Slide Show (S9) 1.2.3 on Ruby 1.9.3 (2012-04-20) [x86_64-linux]">
+<meta name="author"    content="Colin MacDonald" >
+
+<!-- SyntaxHighlighter (sh) style sheet; goes first so we can override styles if needed -->
+<!-- todo: add theme-ing support -->
+<link rel="stylesheet" href="highlighter/shCoreDefault.css">
+
+<!-- S6 style sheet links -->
+<link rel="stylesheet" href="slides.css"  media="projection" id="styleProjection">
+<link rel="stylesheet" href="s6/screen.css"          media="screen" id="styleScreen">
+<link rel="stylesheet" href="s6/print.css"           media="print">
+
+<!-- S6 JS -->
+<script src="s6/jquery.js"></script>
+<script src="s6/jquery.slideshow.js"></script>
+
+<!-- SyntaxHighlighter (sh) machinery -->
+<script src="highlighter/shCore.js"></script>
+
+<!-- SyntaxHighlighter brushes, remove those for languages you don't need --> 
+<script src="highlighter/shBrushAppleScript.js"></script>
+<script src="highlighter/shBrushAS3.js"></script>
+<script src="highlighter/shBrushBash.js"></script>
+<script src="highlighter/shBrushColdFusion.js"></script>
+<script src="highlighter/shBrushCpp.js"></script>
+<script src="highlighter/shBrushCSharp.js"></script>
+<script src="highlighter/shBrushCss.js"></script>
+<script src="highlighter/shBrushDelphi.js"></script>
+<script src="highlighter/shBrushDiff.js"></script>
+<script src="highlighter/shBrushErlang.js"></script>
+<script src="highlighter/shBrushGroovy.js"></script>
+<script src="highlighter/shBrushJavaFX.js"></script>
+<script src="highlighter/shBrushJava.js"></script>
+<script src="highlighter/shBrushJScript.js"></script>
+<script src="highlighter/shBrushPerl.js"></script>
+<script src="highlighter/shBrushPhp.js"></script>
+<script src="highlighter/shBrushPlain.js"></script>
+<script src="highlighter/shBrushPowerShell.js"></script>
+<script src="highlighter/shBrushPython.js"></script>
+<script src="highlighter/shBrushRuby.js"></script>
+<script src="highlighter/shBrushSass.js"></script>
+<script src="highlighter/shBrushScala.js"></script>
+<script src="highlighter/shBrushSql.js"></script>
+<script src="highlighter/shBrushVb.js"></script>
+<script src="highlighter/shBrushXml.js"></script>
+
+
+<script type="text/javascript">
+
+$(document).ready( function() {
+  Slideshow.init();
+  SyntaxHighlighter.all();
+} );
+
+  
+ 
+</script>
+
+<!-- Better Browser Banner for Microsoft Internet Explorer (IE) -->
+<!--[if IE]>
+<script src="s6/jquery.microsoft.js"></script>
+<![endif]-->
+
+
+
+</head>
+<body>
+
+<div class="layout"> 
+  <div id="header"></div>
+  <div id="footer">
+    <h1></h1>
+    <h2></h2>
+  </div>
+</div><!-- layout -->
+
+<div class="presentation">
+   
+<div class='slide '>
+
+<!-- _S9SLIDE_ -->
+<h1>Amateur Erlang</h1>
+<p><em>am·a·teur noun \ˈa-mə-(ˌ)tər, -ˌtu̇r, -ˌtyu̇r, -ˌchu̇r, -chər\</em></p>
+<ol>
+	<li>devotee, admirer</li>
+	<li>one who engages in a pursuit, study, science, or sport as a pastime rather than as a profession</li>
+</ol>
+<p style="text-align:center;" class="credit"><a href="http://www.merriam-webster.com/dictionary/amateur">From Merriam Webster</a></p>
+</div>
+<div class='slide '>
+<p><!-- _S9SLIDE_  --></p>
+<p style="text-align:center;"><img src="img/escargot.jpg" title="escargot" alt="escargot" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/flavouz/4364129769/">Image by Flavio Ensiki</a></p>
+</div>
+<div class='slide '>
+<p><!-- _S9SLIDE_  --></p>
+<p style="text-align:center;"><img src="img/bowling.jpg" title="bowling" alt="bowling" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/heisenbergmedia/8429677728/">Image by Heisenberg Media</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Bowling Elegantly</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+score(Rolls) -&gt; frame(Rolls, 1, 0).
+
+ %% Game complete.
+frame(_BonusRolls, 11, Score) -&gt; Score;
+
+ %% Strike.
+frame([10|Rest], Frame, Score) -&gt;
+    frame(Rest, Frame + 1, Score + 10 + strike_bonus(Rest));
+
+ %% Spare.
+frame([First,Second|Rest], Frame, Score) when (First + Second == 10) -&gt;
+    frame(Rest, Frame + 1, Score + 10 + spare_bonus(Rest));
+
+ %% Normal.
+frame([First,Second|Rest], Frame, Score) -&gt;
+    frame(Rest, Frame + 1, Score + First + Second).
+
+ %% spare &amp; strike bonus calculations.
+spare_bonus([First|_Rest]) -&gt; First.
+strike_bonus([First,Second|_Rest]) -&gt; First + Second.
+</pre></div>
+<!-- end code -->
+
+</div>
+<div class='slide '>
+<p><!-- _S9SLIDE_  --></p>
+<p style="text-align:center;"><img src="img/splashdown.jpg" title="Apollo 11" alt="Apollo 11" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/penmachine/3738747586/">Image by NASA</a></p>
+</div>
+<div class='slide '>
+<p><!-- _S9SLIDE_  --></p>
+<p style="text-align:center;"><img src="img/crowd.jpg" title="crowd" alt="crowd" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/jamescridland/613445810/">Image by James Cridland</a></p>
+</div>
+<div class='slide '>
+<p><!-- _S9SLIDE_  --></p>
+<p style="text-align:center;"><img src="img/ideas.jpg" title="ideas" alt="ideas" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/khalidalbaih/5134654297/">Image by Khalid Albaih</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Syntax</h1>
+<!-- begin code{:line_numbers=>"false"} -->
+<div class='code'><pre class='brush: ruby toolbar: false gutter: false'>
+-module(my_module).
+
+my_func([]) -&gt;
+    Value = get_default_value(),          % comma
+    Response = case other_func(Value) of
+        ok -&gt; &quot;We're good!&quot;;              % semicolon
+        _ -&gt; &quot;Oh noes!&quot;                   % nothing!
+    end,                                  % comma
+    {Response, Value};                    % semicolon
+my_func([Value]) -&gt;
+    {&quot;We're good!&quot;, Value};               % semicolon
+my_func(Values) -&gt;
+    IncDbl = fun (X) -&gt;
+        Inc = X + 1,                      % comma
+        Inc * 2                           % nothing!
+    end,                                  % comma
+    Value = lists:map(IncDbl, Values),    % comma
+    {&quot;We're good!&quot;, Value}.               % period
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Recursion</h1>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Recursion</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+
+ %% beginning
+func(Input) -&gt;
+    Output = [],
+    func(Input, Output).
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Recursion</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+ %% beginning
+func(Input) -&gt;
+    Output = [],
+    func(Input, Output).
+
+ %% end
+func([], Output) -&gt; lists:reverse(Output).
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Recursion</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+ %% beginning
+func(Input) -&gt;
+    Output = [],
+    func(Input, Output).
+
+ %% end
+func([], Output) -&gt; lists:reverse(Output).
+
+ %% middle
+func([First | Rest], Output) -&gt;
+    NewFirst = munge(First),
+    func(Rest, [NewFirst | Output]);
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Recursion</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+lists:map(fun my_module:munge/1, Input)
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>More OO than OO</h1>
+<p style="text-align:center;"><img src="img/more_human.jpg" title="ideas" alt="ideas" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/markhillary/4054661757/">Image by Mark Hillary</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>More OO than OO</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+loop(State) -&gt;
+    receive Message -&gt;
+        NewState = handle_message(Message, State),
+        loop(NewState)
+    end.
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>More OO than OO</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+loop(Id) -&gt;
+    receive
+        {FromPid, next} -&gt;
+            NewId = Id + 1,
+            FromPid ! NewId,
+            loop(NewId)
+    end.
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>More OO than OO</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+loop(Id) -&gt;
+    receive
+        {FromPid, next} -&gt;
+            NewId = Id + 1,
+            FromPid ! NewId,
+            loop(NewId)
+    end.
+
+init() -&gt;
+    Pid = spawn(fun() -&gt; loop(0) end),
+    Pid ! {self(), next},
+    Id = receive Resp -&gt; Resp end.
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>More OO than OO</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+1&gt; file:open(&quot;test.txt&quot;, [write]).
+{ok,&lt;0.35.0&gt;}
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>More OO than OO</h1>
+<h2>gen_server, gen_event, gen_fsm, &#8230;</h2>
+</div>
+<div class='slide '>
+<p><!-- _S9SLIDE_  --></p>
+<p style="text-align:center;"><img src="img/blacksmith.jpg" title="blacksmith" alt="blacksmith" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/derekskey/5249580870/">Image by Derek Key</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Scripting</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+#!/usr/local/bin/escript
+
+main(Args) -&gt;
+    io:format(&quot;Hello world!~n\t~p~n&quot;, [Args]).
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Scripting</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+ #!/usr/local/bin/escript
+ %%! -sname my_script
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Scripting</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+#!/usr/local/bin/escript
+
+main([Url]) -&gt;
+    inets:start(),
+    {ok, {{_Proto, Code, _Desc}, _Hdr, Content}} = httpc:request(Url),
+    io:format(&quot;Response (~p):~n~s~n&quot;, [Code, Content]).
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Testing Tools</h1>
+<p style="text-align:center;"><img src="img/oscilloscope.jpg" title="testing" alt="testing" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/audin/2418185852/">Image by Audin Malmin</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Web Service Fakery</h1>
+<!-- begin code{:lang=>"erlang", :line_numbers=>"false"} -->
+<div class='code'><pre class='brush: erlang toolbar: false gutter: false'>
+-module(my_web_service).
+-behaviour(spooky).
+-export([init/1, get/2]).
+
+init([])-&gt; [{port, 8000}].
+
+get(Req, []) -&gt;
+    Req:ok(&quot;Default response&quot;);
+ %% http://localhost:8000/path/to/resource
+get(Req, [&quot;path&quot;, &quot;to&quot;, &quot;resource&quot;]) -&gt;
+    Req:ok(&quot;Canned response for resource&quot;);
+get(Req, [&quot;path&quot;, &quot;to&quot;, &quot;other-resource&quot;]) -&gt;
+    Req:ok(&quot;Canned response for other resource&quot;);
+get(Req, [&quot;path&quot;, &quot;to&quot;, SomethingElse]) -&gt;
+    Req:ok(io_lib:format(&quot;Canned response for ~p&quot;, [SomethingElse])).
+</pre></div>
+<!-- end code -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Web Apps</h1>
+<ul>
+	<li>Spooky</li>
+	<li>ChicagoBoss</li>
+	<li>WebMachine</li>
+</ul>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Contributing</h1>
+<p style="text-align:center;"><img src="img/maintenance.jpg" title="contributing" alt="contributing" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/usnavy/5863636901/">Image by US Navy</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Documentation</h1>
+<p style="text-align:center;"><img src="img/documents.jpg" title="documents" alt="documents" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/toms/94441116/">Image by Toms Bauģis</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1>Adventure Awaits!</h1>
+<p style="text-align:center;"><img src="img/rafting.jpg" title="adventure" alt="adventure" /></p>
+<p style="text-align:center;" class="credit"><a href="http://www.flickr.com/photos/13963375@N00/138745886/">Image by Chris Bartle</a></p>
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 class="author">Colin MacDonald</h1>
+<ul>
+	<li><a href="mailto:colin@bluegraybox.com">colin@bluegraybox.com</a><br></li>
+	<li><a href="http://bluegraybox.com/blog/">http://bluegraybox.com/blog/</a><br></li>
+	<li><a href="http://github.com/bluegraybox">http://github.com/bluegraybox</a><br></li>
+</ul></div>
+
+
+</div><!-- presentation -->
+</body>
+</html>
