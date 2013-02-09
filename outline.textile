@@ -1,46 +1,75 @@
-Erlang's Chicken-and-Egg Problem
-* Need the experience to get the job...
-** Scalable distributed systems
-** Weird language: not-C, immutable, no for loop
-** roadmap: worth learning, getting over the hump, gaining experience
+Amateur Erlang
+* Intro: non-pro
+** fun!
+** learning - generally useful
+** better programmer
+** roadmap:
+*** what you learn, learning Erlang
+*** ah-ha! moments
+*** getting experience
 
-* Worth learning for its own sake
-** foreign travel: day trip v stay
-** meta-learning/adaptability
-** less freaked out by syntax: Coffeescript, Objective-C
-** functional problem-solving (bowling game)
+* foreign travel
+** intro
+*** day trip v stay
+*** meta-learning/adaptability
+*** less freaked out by syntax: Coffeescript, Objective-C
+*** different way of solving problems
+
+** bowling game
+*** Python, then Erlang
 *** division of responsibility; complexity begets complexity
 *** list of numbers -> single number: fold function
+
+** bringing it home
 *** back to Python
-** Backbone.js & Coffeescript
-** the Erlang community is still small enough to be awesome
+*** Backbone.js & Coffeescript
 
-* Over the hump
-** syntax - you will get used to it
-*** not C but English; functions are sentences
+** people you meet: the Erlang community
+
+* ah-ha! moments
+
+** syntax
+*** not C but English
+*** header defs (-module()) express a complete thought
+*** functions are sentences
 *** control structures are functions
+*** you'll get used to it
 
-** recursion: rare in OO, everywhere in Erlang
+** recursion
+*** rare in OO, everywhere in Erlang: all loops and iterators
 *** synergistic weirdness: immutable variables, pattern matching
 *** beginning, end, middle
 *** pattern matching
 *** libraries: lists, proplists
 
-** processes & IPC: again, rare in OO, everywhere in Erlang
-*** more OO than OO: objects -> processes
+** processes & IPC
+*** again, rare in OO, everywhere in Erlang
+*** more OO than OO
+**** OO objects are passive
+**** Erl actors: process that manage local data
+**** objects -> processes
+*** what that looks like; autoincrementer
 *** e.g. file handles
 *** gen_server, gen_event
 
-* gaining experience
+* getting practice - not high-avail systems?
+
 ** scripting
+*** perl/python/ruby replacement
+*** full power of Erlang
+*** -sname == node
+*** web client
+
 ** testing tools
 *** mock web service
 
-** simple web apps
+** web apps
 *** spooky, ChicagoBoss, webmachine
-*** still evolving; "opportunities to contribute"
 
-** contribute!
-*** fix bugs
-*** read other people's source
+** "opportunities to contribute"
+*** GitHub!
 *** help document (beginner++)
+
+** to learn, teach
+
+** adventure awaits!

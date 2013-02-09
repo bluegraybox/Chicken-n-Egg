@@ -163,6 +163,8 @@ my_func(Values) ->
 
 h1. Recursion
 
+h2. Everywhere!
+
 
 h1. Recursion
 {% code lang=erlang line_numbers=false %}
@@ -350,11 +352,11 @@ p=. !img/maintenance.jpg(contributing)!
 p=(credit). "Image by US Navy":http://www.flickr.com/photos/usnavy/5863636901/
 
 
-h1. Documentation
+h1. To Learn, Teach
 
-p=. !img/documents.jpg(documents)!
+p=. !img/presentation.jpg(presentation)!
 
-p=(credit). "Image by Toms Bauģis":http://www.flickr.com/photos/toms/94441116/
+p=(credit). "Image by US Department of Education":http://www.flickr.com/photos/departmentofed/7733042778/
 
 
 h1. Adventure Awaits!

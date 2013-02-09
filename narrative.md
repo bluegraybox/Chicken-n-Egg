@@ -1,10 +1,9 @@
 # Amateur Erlang
 
-I think I'm the only one up here who doesn't actually make their living programming Erlang, so I'm going to speak a bit more to the beginner experience. I've been tinkering with it for the last year and a half or so, and in short, it's been awesome.
+I think I'm the only one up here who doesn't actually make their living programming Erlang, so I'm still a beginner in a lot of ways.  I've been tinkering with Erlang for the last year and a half or so, and in short, it's been awesome. I've had a lot of fun. I've learned a ton, and what I've learned has been more broadly useful than I might have expected. It's definitely made me a better programmer.
 
-First off, I like learning - you kinda have to in this business, and I don't think you all would be spending your Saturday here if you didn't also. Erlang gives you a lot to learn, especially if, like me, you're new to functional programming. That's a whole new world, and Erlang is actually a nice way to learn it. I actually came to Erlang as a kinder, gentler Lisp. Secondly, while I haven't written much Erlang code for work - I've written a tiny bit and I'll talk about that later - that functional programming experience has started to creep into code I'm writing in other languages. All in all, I've learned a lot, become a better programmer, and had a ton of fun.
+So I'm going to talk about that experience: what you learn when you learn Erlang; some of the "ah-ha!" moments I've had - things that will give you a running start at the Erlang learning curve; and how to get some practical experience with Erlang before you dive into writing distributed, high-availability systems.
 
-So I'm going to talk a bit about what you learn by learning Erlang, and try to give you a running start at it. There are a few concepts in Erlang in specific - and functional programming in general - that you need to wrap your head around. Hopefully, there will be an "Ah-ha!" moment or two for you in here somewhere. Lastly, I'll talk about the things that I've found to be good ways of getting some practical experience with Erlang.
 
 ## Foreign Travel
 
@@ -12,7 +11,7 @@ Learning a new programming language is like going to a foreign country. It's not
 
 There's also a sort of meta-learning, because then when you go to a different country, it's not as jarring; you adapt more quickly. I found that once I'd gotten used to Erlang's syntax, other languages - Coffeescript and Scala - didn't look so weird. At work the other day, someone was doing a demo of iPhone development, and some of my co-workers were really thrown by Objective-C's syntax. I was just like, "Oh yeah, now that you mention it, it does have an odd mix of Lisp-style bracket grouping and C-style dot notation. Whatever. It's code."
 
-I come from a Java/object-oriented background, so aside from the syntax, the things about Erlang that are different are: immutable variables, the focus on simple data structures, and functional language features like recursion and closures. These aren't entirely separate things. They all work together and add up to a different way of solving problems.
+Working with Erlang also teaches you a fundamentally different way of solving problems, especially if, like me, you're coming from an object-oriented background like Java or Python. It has functional language features like recursion and closures. It focuses on simple data structures, and gives you powerful tools for working with them. And it's all about concurrency. Those all add up to something more than the sum of their parts. They're also things that translate to other languages: You'll see Erlang-style concurrency in Scala, and functional programming is showing up all over the place these days.
 
 ### Bowling
 
@@ -55,18 +54,16 @@ In the last year, I've also done a bunch of rich browser client Javascript progr
 
 ### Community
 
-The other little plug I'll make is for the Erlang community. It's still small enough to be awesome. Just lurk on the erlang-questions mailing list, and you can learn a ton. There are some really sharp people on it, and the discussions are a fascinating mix of academic and practical. You see threads that wander from theoretical computer science to implementation details to performance issues.
+The other thing about foreign travel is the people you meet. I'd like to make a little plug for the Erlang community. It's still small enough to be awesome. Just lurk on the erlang-questions mailing list, and you can learn a ton. There are some really sharp people on it, and the discussions are a fascinating mix of academic and practical. You see threads that wander from theoretical computer science to implementation details to performance issues.
 
-## What you need to wrap your head around
 
-Ok, you're sold, you're going to sink a chunk of time into learning Erlang.
-Again, Erlang is pretty foreign, especially if it's your first functional language.
-It's not that it's really more complicated than other languages; it's just a different way of doing things.
-So what are some of the stumbling blocks, the cultural differences that you need to wrap your head around?
+## Ah-ha! Moments
+
+Like I said, Erlang has a different way of doing things. It's not that it's all that more complicated than other languages, but it's definitely different. So I'm going to talk about some of the ah-ha! moments - the conceptual breakthroughs - that made learning it easier.
 
 ### Syntax
 
-I'll start with the syntax, which is probably the least significant weirdness, but it's the first thing that people tend to get hung up on. They look at Erlang code, and they're all like, "Where are the semicolons? What are all these commas doing here? Where are the curly braces?" It all seems bizarre and arbitrary. It's not. It's just not like C.
+I'll start with the syntax, which is probably the least important difference, but it's the first thing that people tend to get hung up on. They look at Erlang code, and they're all like, "Where are the semicolons? What are all these commas doing here? Where are the curly braces?" It all seems bizarre and arbitrary. It's not. It's just not like C.
 
 What helped me get used to Erlang's syntax was realizing that what it looks like is English. Erlang functions are like sentences: You have commas between lists of things, semicolons between clauses, and a period at the end. Header statements like `-module` and `-define` all express a complete thought, so they end with a period. A function definition is one big multi-line sentence. Each line within it ends with a comma, function clauses end with a semicolon, and there's a period at the end. `case`, `if`, and `fun` blocks are like mini function definitions: They separate their conditions with semicolons and end with `end`. `end` *is* the puctuation; you don't put another semicolon before it. After `end`, you put whatever punctuation would normally go there.
 
@@ -94,6 +91,8 @@ my_func(Values) ->
     Value = lists:map(IncDbl, Values),    % comma
     {"We're good!", Value}.               % period
 ```
+
+Even with that, it's still pretty idiosyncratic. You'll find yourself making a bunch of syntax mistakes at first, and that'll be frustrating. Let me just say that you'll get used to it faster than you expect. After a couple weekends hacking on Erlang code, it'll start to look normal.
 
 ### Recursion
 
@@ -267,22 +266,5 @@ One of the things I've run across with these, as with most open-source tools, is
 Even if you're unlucky, and the code works perfectly, almost every piece of software out there could benefit from better documentation. Take advantage of your newbie status; write a tutorial. The people who wrote the software know it inside and out; it helps to have beginners writing for beginners. Standing up here, I can tell you that a great way to learn something is to try to explain it to someone else.
 
 
-### Outro
+### Adventure Awaits!
 
-
-
-```
-	gaining experience
-		use on personal projects
-			simple web apps
-				ChicagoBoss, nitrogen, spooky, webmachine
-		non-critical apps
-			escript
-			testing tools: web services
-			mock services
-		read other people's source
-			I've contributed *minor* patches to both Spooky and Erlydtl
-			odds are you'll find something you need to fix or extend
-		There are two sides to learning Erlang: the language itself, and building and deploying complex applications.
-			Honestly, I haven't cracked the second half of that problem.
-```
