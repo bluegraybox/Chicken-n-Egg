@@ -73,7 +73,7 @@ _am·a·teur noun \ˈa-mə-(ˌ)tər, -ˌtu̇r, -ˌtyu̇r, -ˌchu̇r, -chər\_
 # devotee, admirer
 # one who engages in a pursuit, study, science, or sport as a pastime rather than as a profession
 
-p=(credit). http://www.merriam-webster.com/dictionary/amateur
+p=(credit). "From Merriam Webster":http://www.merriam-webster.com/dictionary/amateur
 
 
 !SLIDE
@@ -135,9 +135,6 @@ p=(credit). "Image by James Cridland":http://www.flickr.com/photos/jamescridland
 p=. !img/ideas.jpg(ideas)!
 
 p=(credit). "Image by Khalid Albaih":http://www.flickr.com/photos/khalidalbaih/5134654297/
-
-
-h1. Syntax
 
 
 h1. Syntax
@@ -328,13 +325,15 @@ h1. Web Service Fakery
 
 init([])-> [{port, 8000}].
 
-get(Req, [])->
+get(Req, []) ->
     Req:ok("Default response");
  %% http://localhost:8000/path/to/resource
-get(Req, ["path", "to", "resource"])->
+get(Req, ["path", "to", "resource"]) ->
     Req:ok("Canned response for resource");
-get(Req, ["path", "to", "other-resource"])->
-    Req:ok("Canned response for other resource").
+get(Req, ["path", "to", "other-resource"]) ->
+    Req:ok("Canned response for other resource");
+get(Req, ["path", "to", SomethingElse]) ->
+    Req:ok(io_lib:format("Canned response for ~p", [SomethingElse])).
 {% end %}
 
 
@@ -344,8 +343,28 @@ h1. Web Apps
 * WebMachine
 
 
-h1. Maintenance
+h1. Contributing
 
-p=. !img/maintenance.jpg(maintenance)!
+p=. !img/maintenance.jpg(contributing)!
 
 p=(credit). "Image by US Navy":http://www.flickr.com/photos/usnavy/5863636901/
+
+
+h1. Documentation
+
+p=. !img/documents.jpg(documents)!
+
+p=(credit). "Image by Toms Bauģis":http://www.flickr.com/photos/toms/94441116/
+
+
+h1. Adventure Awaits!
+
+p=. !img/rafting.jpg(adventure)!
+
+p=(credit). "Image by Chris Bartle":http://www.flickr.com/photos/13963375@N00/138745886/
+
+
+h1(author). Colin MacDonald
+* "colin@bluegraybox.com":mailto:colin@bluegraybox.com<br>
+* "http://bluegraybox.com/blog/":http://bluegraybox.com/blog/<br>
+* "http://github.com/bluegraybox":http://github.com/bluegraybox<br>

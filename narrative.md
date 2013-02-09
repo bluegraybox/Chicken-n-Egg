@@ -1,8 +1,8 @@
 # Amateur Erlang
 
-I think I'm the only one up here who doesn't actually make their living programming Erlang. I've been tinkering with it for the last year and a half or so, and it's been awesome.
+I think I'm the only one up here who doesn't actually make their living programming Erlang, so I'm going to speak a bit more to the beginner experience. I've been tinkering with it for the last year and a half or so, and in short, it's been awesome.
 
-First off, I like learning - you kinda have to in this business, and I don't think you all would be spending your Saturday here if you didn't also. Erlang gives you a lot to learn, especially if, like me, you're new to functional programming. That's a whole new world, and Erlang is actually a nice way to learn it. Secondly, while I haven't written much Erlang code for work - I've written a tiny bit and I'll talk about that later - that functional programming experience has started to creep into code I'm writing in other languages. All in all, I've learned a lot, become a better programmer, and had a ton of fun.
+First off, I like learning - you kinda have to in this business, and I don't think you all would be spending your Saturday here if you didn't also. Erlang gives you a lot to learn, especially if, like me, you're new to functional programming. That's a whole new world, and Erlang is actually a nice way to learn it. I actually came to Erlang as a kinder, gentler Lisp. Secondly, while I haven't written much Erlang code for work - I've written a tiny bit and I'll talk about that later - that functional programming experience has started to creep into code I'm writing in other languages. All in all, I've learned a lot, become a better programmer, and had a ton of fun.
 
 So I'm going to talk a bit about what you learn by learning Erlang, and try to give you a running start at it. There are a few concepts in Erlang in specific - and functional programming in general - that you need to wrap your head around. Hopefully, there will be an "Ah-ha!" moment or two for you in here somewhere. Lastly, I'll talk about the things that I've found to be good ways of getting some practical experience with Erlang.
 
@@ -251,11 +251,24 @@ get(Req, ["path", "to", "other-resource"])->
 
 ### Web Apps
 
-So web apps are another good place to start tinkering with Erlang. Erlang has a range of web application frameworks, so you can decide how much of the heavy lifting you want to do. As you saw, Spooky lets you simple stuff easily, but it's fairly low-level.
+If you're coming from a web background, that's another good place to start tinkering with Erlang. Erlang has a range of web application frameworks, so you can decide how much of the heavy lifting you want to do. As you saw, Spooky lets you simple stuff easily, but it's fairly low-level.
 
-ChicagoBoss is a richer, Django-like framework with an ORM, URL dispatching, and page templates (with Django syntax, no less). Wait, _Object_-Relational Mapper? What's that doing in a functional language? Yeah, ok, really they're proplists with a parameterized module and a bunch of auto-generated helper functions wrapped around them. They're still immutable; don't freak out. ChicagoBoss just makes them a little easier to work with. It also gives you some enticing extras like a built in message queue and email server. The ChicagoBoss tutorial is really concise and well-written, so I'll leave it at that.
+ChicagoBoss is a richer, Django-like framework. It has an ORM, URL dispatching, and page templates (with Django syntax, no less). Wait, _Object_-Relational Mapper? What's that doing in a functional language? Yeah, ok, really they're proplists with a parameterized module and a bunch of auto-generated helper functions wrapped around them. They're still immutable; don't freak out. More experienced developers may argue about whether that's the right way to do things, but it certainly makes ChicagoBoss more beginner-friendly.  It also gives you some enticing extras like a built in message queue and email server. The ChicagoBoss tutorial is really concise and well-written, so I'll leave it at that.
 
-If you want to get into the nuts and bolts of proper HTTP request handling, take a look at WebMachine. Most web frameworks leave out or gloss over a lot of the richness of the HTTP protocol. WebMachine gives you a lot of control over every step of the request handling, and forces you to think it through. It's not the most intuitive for beginners, but it's an education.
+If you want to get into the nuts and bolts of proper HTTP request handling, take a look at WebMachine. Most web frameworks leave out or gloss over a lot of the richness of the HTTP protocol. WebMachine not only gives you a lot of control over every step of the request handling, but actually forces you to think through it. It's not the most intuitive for beginners, but it's an education.
+
+Those are the ones I've played with a bit, but there are lots more.
+
+
+### Contributing
+
+One of the things I've run across with these, as with most open-source tools, is that there are "opportunities to contribute." Working with Spooky, I tripped over an odd little edge case. We'd love it if all of our software tools worked perfectly all the time, but the next best thing is if the source is on GitHub. It turned out to be a simple fix - half a dozen lines of code. I forked it, fixed it, and put in a pull request. Had a similar experience with the ChicagoBoss templating code. They were both tiny contributions, but you still get a warm fuzzy feeling doing that. Throw in a few extra unit tests if you really want to make the owners happy.
+
+Even if you're unlucky, and the code works perfectly, almost every piece of software out there could benefit from better documentation. Take advantage of your newbie status; write a tutorial. The people who wrote the software know it inside and out; it helps to have beginners writing for beginners. Standing up here, I can tell you that a great way to learn something is to try to explain it to someone else.
+
+
+### Outro
+
 
 
 ```

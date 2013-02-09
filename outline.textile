@@ -40,4 +40,7 @@ Erlang's Chicken-and-Egg Problem
 *** spooky, ChicagoBoss, webmachine
 *** still evolving; "opportunities to contribute"
 
-** read other people's source
+** contribute!
+*** fix bugs
+*** read other people's source
+*** help document (beginner++)
